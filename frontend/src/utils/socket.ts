@@ -5,7 +5,7 @@ let socket: Socket | null = null;
 
 export const connectSocket = (token: string) => {
   if (!socket) {
-    socket = io("http://localhost:3000", {
+    socket = io("https://casino-t8a2.vercel.app", {
       auth: { token },
     });
 
