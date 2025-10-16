@@ -1,0 +1,33 @@
+version: "3.9"
+
+services:
+  backend:
+    build:
+      context: ./backend
+    container_name: casino-backend
+    ports:
+      - "7070:7070"
+    env_file:
+      - ./backend/.env
+    networks:
+      - casino-net
+
+  frontend:
+    build:
+      context: ./frontend
+    container_name: casino-frontend
+    ports:
+      - "3000:3000"
+    env_file:
+      - ./frontend/.env
+    environment:
+      # Let frontend talk to backend through Docker network name
+      NEXT_PUBLIC_API_URL: http://backend:7070
+    depends_on:
+      - backend
+    networks:
+      - casino-net
+
+networks:
+  casino-net:
+    driver: bridge
